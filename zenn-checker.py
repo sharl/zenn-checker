@@ -32,6 +32,7 @@ class taskTray:
     def buildMenu(self):
         item = [
             MenuItem('Check', self.doCheck, visible=False, default=True),
+            MenuItem('Zenn.dev', self.openPage),
             Menu.SEPARATOR,
         ]
         for title in self.articles:
@@ -47,7 +48,7 @@ class taskTray:
 
     def doCheck(self):
         articles = []
-        maps = {}
+        maps = {'Zenn.dev': base_url}
         with requests.get(base_url + '/articles') as r:
             soup = bs(r.content, 'html.parser')
             data = json.loads(soup.find(id='__NEXT_DATA__').text)['props']['pageProps']['articles'][:10]
